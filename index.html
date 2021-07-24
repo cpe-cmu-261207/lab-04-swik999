@@ -6,14 +6,28 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src='script.js' defer></script>
-	<title>Lab 04</title>
-	<!-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> -->
+	<title>Just Do It</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body>
-	<h1>Minimal Todo List</h1>
-	<input  type='text'>
-	<button>+</button>
+<body class="bg-gradient-to-r from-green-400 to-blue-500">
+	<div class="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans">
+		<div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
+			<div class="mb-4" >
+				<header class=" text-4xl font-bold text-center">Just Do It List</header>
+				<form">
+					<div class="flex mt-4">
+						<input id="doitInput" class=" shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-darker" type="text" placeholder="Add something">
+						<span><button id="addBTN" class="flex-no-shrink p-2 border-2 rounded text-teal border-teal hover:text-white hover:bg-teal" >Add to do</button></span>
+					</div>
+				</form>
+			</div>
+			<div id="doitlists" class="mb-4">
+				<ul id="doitlists" class="list-group list-group-flush">
+				</ul>
+			</div>
+		  </div>
+	</div>
 </body>
 
 </html>
