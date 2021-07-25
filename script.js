@@ -1,27 +1,27 @@
-const Input = document.getElementById('.doitInput');
-const addButton = document.getElementById('.addBTN');
-const doitList = document.getElementById('.doitlists');
-const doneButton = document.getElementById('.doneBTN');
-const deleteButton = document.getElementById('.deleteBTN');
+const DoitInput = document.querySelector('.doitInput');
+const AddButton = document.querySelector('.addBTN');
+const DoitList = document.querySelector('.dolists');
+const DoneButton = document.querySelector('.doneBTN');
+const DelButton = document.querySelector('.delBTN');
 
-document.addEventListener("DOMContentLoaded", localget);
+document.addEventListener("DOMContentLoaded", getdoit);
 
-addButton.addEventListener("click", doitAdd);
-doitList.addEventListener("click", CheckAndDelete);
+AddButton.addEventListener("click", DoitAdd);
+DoitList.addEventListener("click", CheckAndDelete);
 
-function doitAdd(event){
+function DoitAdd(event){
 
   event.preventDefault();
 
-  const doit = doitcheck();
+  const doits = DoitsCheck();
 
-  if((Input.value.trim() !== "") && (!doit.includes(Input.value))){
+  if((DoitInput.value.trim() !== "") && (!doits.includes(DoitInput.value))){
 
-    createdoitList(Input.value);
+    createDoitList(DoitInput.value);
 
-    saveLocaldoit(Input.value);
+    saveLocalDoits(DoitInput.value);
 
-    Input.value = "";
+    DoitInput.value = "";
 
   }else{
     alert("Task cannot be empty!!!");
@@ -29,38 +29,50 @@ function doitAdd(event){
 }
 
 
-function createdoitList(doitCompleted){
+function createDoitList(doit){
 
-  const newdoitList = document.createElement("li");
-  newdoitList.classList.add("doit")
-  createDoit(doitCompleted.newdoitList)
+  const newDoitList = document.createElement("li");
+  newDoitList.classList.add("doit","todo-tasks-wrapper", "flex p-2", "text-black", "rounded-sm")
+  createDoit(doitDone.newDoitList)
 }
 
-function createDoit(doit,newdoitList){
+function createDoitListDone(doitDone) {
 
-  const newdoitText = document.createElement("h5");
-  newdoitText.innerText = doit;
+  const newDoitList = document.createElement("li");
+  newDoitList.classList.add("doit", "todo-tasks-wrapper", "flex p-2", "text-black", "rounded-sm");
 
-  newdoitList.appendChild(newdoitText);
+  createDoit(doitDone, newDoitList);
 
-  const newdoitButton = document.createElement("span");
-  newdoitList.appendChild(newdoitButton);
+}
 
-  const doneButton = document.createElement("button");
-  doneButton.type = "button";
-  doneButton.classList.add("doneBTN");
+function createDoit(doit,newDoitList){
 
-  newdoitButton.appendChild(doneButton);
+  const newDoitText = document.createElement("h5");
+  newDoitText.classList.add("")
+  newDoitText.innerText = doit;
 
-  const deleteButton = document.createElement("button");
-  deleteButton.type = "button";
-  deleteButton.classList.add("deleteBTN");
+  newDoitList.appendChild(newDoitText);
 
-  newdoitButton.appendChild(deleteButton);
+  const newAddButtons = document.createElement("span");
+  newDoitList.appendChild(newAddButtons);
 
-  newdoitList.appendChild(newdoitButton);
+  const DoneButton = document.createElement("button");
+  DoneButton.innerHTML = "Done";
+  DoneButton.type = "button";
+  DoneButton.classList.add("doneBTN","text-green-400 hover:text-green-300");
 
-  doitList.appendChild(newdoitList);
+  newAddButtons.appendChild(DoneButton);
+
+  const DelButton = document.createElement("button");
+  DelButton.innerHTML = "Del";
+  DelButton.type = "button";
+  DelButton.classList.add("delBTN","text-red-400 hover:text-red-300");
+
+  newAddButtons.appendChild(DelButton);
+
+  newDoitList.appendChild(newAddButtons);
+
+  DoitList.appendChild(newDoitList);
   }
 
   function CheckAndDelete(event){
@@ -73,10 +85,10 @@ function createDoit(doit,newdoitList){
 
       doit.classList.toggle("done");
 
-      saveLocaldoitDone(doit.children[0].innerText);
+      saveLocalDoitsDone(doit.children[0].innerText);
     }
 
-    if(item.classList[0] === "deleteBTN"){
+    if(item.classList[0] === "delBTN"){
       
       const doit = item.parentElement.parentElement;
       doit.addEventListener(function(){
@@ -84,30 +96,30 @@ function createDoit(doit,newdoitList){
       });
     }
 
-    removeLocaldoit(doit);
-    removeLocaldoitDone(doit);
+    removeLocalDoits(doit);
+    removeLocalDoitsDone(doit);
   }
 
-  function saveLocaldoit(doit){
+  function saveLocalDoits(doit){
 
-    const doits = checkdoit();
+    const doits = checkdoits();
 
     doits.push(doit);
-    localStorage.setItem("doit",JSON.stringify(doit));
-  }
-
-  function removeLocaldoit(doit){
-
-    const doits = checkdoit();
-
-    const doitIndex = doit.children[0].innerText;
-    doit.splice(doits.indexOf(doitIndex), 1);
     localStorage.setItem("doits",JSON.stringify(doits));
   }
 
-  function saveLocaldoitDone(doit){
+  function removeLocaldoits(doit){
 
-    const doitsDone = checkdoitDone();
+    const doits = checkdoits();
+
+    const doitIndex = doit.children[0].innerText;
+    doits.splice(doits.indexOf(doitIndex), 1);
+    localStorage.setItem("doits",JSON.stringify(doits));
+  }
+
+  function saveLocalDoitsDone(doit){
+
+    const doitsDone = checkdoitsDone();
 
     if(!doitsDone.includes(doit)){
       doitsDone.push(doit);
@@ -120,9 +132,9 @@ function createDoit(doit,newdoitList){
     localStorage.setItem("doitsDone",JSON.stringify(doitsDone));
   }
 
-  function removeLocaldoitDone(doit){
+  function removeLocaldoitsDone(doit){
 
-    const doitsDone = checkdoitDone();
+    const doitsDone = checkdoitsDone();
 
     const doitIndex = doit.children[0].innerText;
 
@@ -130,23 +142,23 @@ function createDoit(doit,newdoitList){
     localStorage.setItem("doitsDone",JSON.stringify(doitsDone));
   }
 
-  function local() {
+  function getdoit() {
 
-    const doits = checkdoit();
-    const doitsDone = checkdoitDone();
+    const doits = checkdoits();
+    const doitsDone = checkdoitsDone();
 
     doits.forEach(function(doit){
 
       if (!doitsDone.includes(doit)) {
-        createdoitList(doit);
+        createDoitList(doit);
         
       } else {
-        createdoitListDone(doit);
+        createDoitListDone(doit);
       }
     })
   }
 
-  function checkdoit() {
+  function checkdoits() {
     let doits;
     if (localStorage.getItem("doits")) {
       return doits = [];
@@ -155,7 +167,7 @@ function createDoit(doit,newdoitList){
     }
   }
 
-  function checkdoitDone(){
+  function checkdoitsDone(){
     let doitsDone;
     if (localStorage.getItem("doitsDone") === null) {
       return doitsDone = [];
