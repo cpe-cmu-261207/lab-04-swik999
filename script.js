@@ -32,14 +32,14 @@ function DoitAdd(event){
 function createDoitList(doit){
 
   const newDoitList = document.createElement("li");
-  newDoitList.classList.add("doit","todo-tasks-wrapper", "flex p-2", "text-black", "rounded-sm")
+  newDoitList.classList.add("todo", "list-group-item", "d-flex", "justify-content-between", "align-items-center");
   createDoit(doitDone.newDoitList)
 }
 
 function createDoitListDone(doitDone) {
 
   const newDoitList = document.createElement("li");
-  newDoitList.classList.add("doit", "todo-tasks-wrapper", "flex p-2", "text-black", "rounded-sm");
+  newDoitList.classList.add("todo", "list-group-item", "d-flex", "justify-content-between", "align-items-center", "completed");
 
   createDoit(doitDone, newDoitList);
 
@@ -48,18 +48,19 @@ function createDoitListDone(doitDone) {
 function createDoit(doit,newDoitList){
 
   const newDoitText = document.createElement("h5");
-  newDoitText.classList.add("")
+  newDoitText.classList.add("text-truncate", "col-8", "col-md-10", "pl-0")
   newDoitText.innerText = doit;
 
   newDoitList.appendChild(newDoitText);
 
   const newAddButtons = document.createElement("span");
+  newAddButtons.classList.add("col-4", "col-md-2", "d-flex", "justify-content-end", "px-0");
   newDoitList.appendChild(newAddButtons);
 
   const DoneButton = document.createElement("button");
   DoneButton.innerHTML = "Done";
   DoneButton.type = "button";
-  DoneButton.classList.add("doneBTN","text-green-400 hover:text-green-300");
+  DoneButton.classList.add("doneBTN","text-green-400 hover:text-green-300 mr-1");
 
   newAddButtons.appendChild(DoneButton);
 
